@@ -7,7 +7,8 @@ const starterProjects = [
 function loadProjects() {
   try {
     const storedProjects = localStorage.getItem('studio-projects');
-    return storedProjects ? JSON.parse(storedProjects) : starterProjects;
+    const parsedProjects = storedProjects ? JSON.parse(storedProjects) : starterProjects;
+    return Array.isArray(parsedProjects) ? parsedProjects : starterProjects;
   } catch (error) {
     return starterProjects;
   }
@@ -55,7 +56,8 @@ async function loadGithubRepos() {
     if (!response.ok) throw new Error('GitHub request failed');
     const repos = await response.json();
     if (!repos.length) { githubGrid.innerHTML = '<div class="github-error">No public repositories found yet.</div>'; return; }
-    githubGrid.innerHTML = repos.map(repo => { let repoUrl; try { repoUrl = new URL(repo.html_url); } catch (error) { return ''; } if (repoUrl.protocol !== 'https:' || repoUrl.hostname !== 'github.com') return ''; return `<a class="github-repo" href="${escapeHtml(repoUrl.href)}" target="_blank" rel="noreferrer"><h3>${escapeHtml(repo.name)}</h3><p>${escapeHtml(repo.description || 'A public project from the archive.')}</p><div class="repo-meta"><span>${escapeHtml(repo.language || 'Code')}</span><span>★ ${repo.stargazers_count}</span><span>↗ GitHub</span></div></a>`; }).join('');
+    const repositoryMarkup = repos.map(repo => { let repoUrl; try { repoUrl = new URL(repo.html_url); } catch (error) { return ''; } if (repoUrl.protocol !== 'https:' || repoUrl.hostname !== 'github.com') return ''; return `<a class="github-repo" href="${escapeHtml(repoUrl.href)}" target="_blank" rel="noreferrer"><h3>${escapeHtml(repo.name)}</h3><p>${escapeHtml(repo.description || 'A public project from the archive.')}</p><div class="repo-meta"><span>${escapeHtml(repo.language || 'Code')}</span><span>★ ${repo.stargazers_count}</span><span>↗ GitHub</span></div></a>`; }).join('');
+    githubGrid.innerHTML = repositoryMarkup || '<div class="github-error">No valid public repositories found yet.</div>';
   } catch (error) {
     githubGrid.innerHTML = '<div class="github-error">GitHub repos are unavailable right now. The rest of the archive is still here.</div>';
   }
