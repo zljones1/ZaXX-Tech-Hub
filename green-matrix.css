@@ -128,6 +128,58 @@ body::before {
   border-color: #39ff14;
 }
 
+.interview-closing {
+  display: grid;
+  grid-template-columns: minmax(220px, .8fr) minmax(0, 1.2fr);
+  gap: 60px;
+  align-items: end;
+  padding: 90px 8vw 105px;
+  border-top: 1px solid #1c6429;
+  background: #061006;
+}
+
+.interview-heading h3 {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-size: 28px;
+  line-height: .95;
+}
+
+.interview-heading em {
+  color: var(--red);
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+
+.interview-closing blockquote {
+  margin: 0;
+  padding: 18px 20px;
+  border-left: 3px solid var(--yellow);
+  background: #071107;
+}
+
+.interview-closing blockquote p {
+  margin: 0 0 12px;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.interview-closing cite {
+  display: block;
+  color: #6da871;
+  font: 10px/1.5 var(--mono);
+  text-transform: uppercase;
+}
+
+@media (max-width: 700px) {
+  .interview-closing {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 70px 7vw 80px;
+  }
+}
+
 .company-icon {
   display: block;
   width: 20px;
