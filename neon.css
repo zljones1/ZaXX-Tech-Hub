@@ -12,11 +12,6 @@ body {
   background: #050505;
 }
 
-.reveal {
-  opacity: 1;
-  transform: none;
-}
-
 body::before {
   background-image: linear-gradient(rgba(255, 23, 68, 0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 23, 68, 0.08) 1px, transparent 1px);
 }
