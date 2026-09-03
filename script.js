@@ -5,13 +5,7 @@ const starterProjects = [
 ];
 
 function loadProjects() {
-  try {
-    const storedProjects = localStorage.getItem('studio-projects');
-    const parsedProjects = storedProjects ? JSON.parse(storedProjects) : starterProjects;
-    return Array.isArray(parsedProjects) ? parsedProjects : starterProjects;
-  } catch (error) {
-    return starterProjects;
-  }
+  return starterProjects;
 }
 
 let projects = loadProjects();
@@ -20,15 +14,12 @@ const grid = document.querySelector('#project-grid');
 const emptyState = document.querySelector('#empty-state');
 const githubGrid = document.querySelector('#github-grid');
 
-function saveProjects() {
-  try { localStorage.setItem('studio-projects', JSON.stringify(projects)); } catch (error) { }
-}
 function categoryLabel(category) { return category === 'web' ? 'Web' : category === 'experiment' ? 'Experiment' : 'Tool'; }
 
 function renderProjects() {
   const query = document.querySelector('#search-input').value.toLowerCase().trim();
   const visible = projects.filter(project => (activeFilter === 'all' || project.category === activeFilter) && `${project.name} ${project.description}`.toLowerCase().includes(query));
-  grid.innerHTML = visible.map((project, index) => `<article class="project-card" style="animation-delay:${index * 70}ms"><div class="project-visual visual-${project.category}"><div class="visual-lines"><i></i><i></i><i></i></div><span class="visual-mark">${project.category === 'web' ? '01' : project.category === 'experiment' ? '✳' : '↗'}</span></div><div class="card-body"><div class="card-meta"><span>${categoryLabel(project.category)}</span><span>${project.year}</span></div><h3>${escapeHtml(project.name)}</h3><p>${escapeHtml(project.description)}</p><div class="card-footer"><button class="card-link view-code" data-id="${project.id}">View source ↗</button>${projects.length > 1 ? `<button class="delete-project" data-id="${project.id}">Remove</button>` : ''}</div></div></article>`).join('');
+  grid.innerHTML = visible.map((project, index) => `<article class="project-card" style="animation-delay:${index * 70}ms"><div class="project-visual visual-${project.category}"><div class="visual-lines"><i></i><i></i><i></i></div><span class="visual-mark">${project.category === 'web' ? '01' : project.category === 'experiment' ? '✳' : '↗'}</span></div><div class="card-body"><div class="card-meta"><span>${categoryLabel(project.category)}</span><span>${project.year}</span></div><h3>${escapeHtml(project.name)}</h3><p>${escapeHtml(project.description)}</p><div class="card-footer"><button class="card-link view-code" data-id="${project.id}">View source ↗</button></div></div></article>`).join('');
   emptyState.hidden = visible.length > 0;
   ['all', 'web', 'experiment', 'tool'].forEach(filter => { document.querySelector(`#${filter === 'all' ? 'all' : filter}-count`).textContent = filter === 'all' ? projects.length : projects.filter(project => project.category === filter).length; });
 }
@@ -38,17 +29,22 @@ document.querySelectorAll('.filter-pill').forEach(button => button.addEventListe
 document.querySelector('#search-input').addEventListener('input', renderProjects);
 grid.addEventListener('click', event => {
   const id = event.target.dataset.id;
-  if (event.target.classList.contains('delete-project')) { projects = projects.filter(project => project.id !== id); saveProjects(); renderProjects(); }
   if (event.target.classList.contains('view-code')) { const project = projects.find(item => item.id === id); if (!project) return; document.querySelector('#code-title').textContent = project.name; document.querySelector('#code-content').textContent = project.code || '// No source added yet.'; document.querySelector('#code-dialog').showModal(); }
 });
 
-const projectDialog = document.querySelector('#project-dialog');
-document.querySelector('#open-add').addEventListener('click', () => projectDialog.showModal());
 document.querySelector('#close-code').addEventListener('click', () => document.querySelector('#code-dialog').close());
 document.querySelector('#copy-code').addEventListener('click', async event => { try { if (!navigator.clipboard) throw new Error('Clipboard unavailable'); await navigator.clipboard.writeText(document.querySelector('#code-content').textContent); event.target.textContent = 'Copied ✓'; } catch (error) { event.target.textContent = 'Copy unavailable'; } setTimeout(() => { event.target.textContent = 'Copy code'; }, 1400); });
-document.querySelector('#project-file').addEventListener('change', event => { const file = event.target.files[0]; if (!file) return; const reader = new FileReader(); reader.addEventListener('load', () => { document.querySelector('#project-code').value = reader.result; }); reader.readAsText(file); });
-document.querySelector('#project-form').addEventListener('submit', event => { event.preventDefault(); const name = document.querySelector('#project-name').value.trim(); projects.unshift({ id: `${Date.now()}`, name, category: document.querySelector('#project-category').value, description: document.querySelector('#project-description').value.trim(), code: document.querySelector('#project-code').value || '// Source coming soon.', year: new Date().getFullYear() }); saveProjects(); renderProjects(); projectDialog.close(); event.target.reset(); document.querySelector('#work').scrollIntoView({ behavior: 'smooth' }); });
 renderProjects();
+
+document.querySelectorAll('.experience-companies a').forEach(company => {
+  company.addEventListener('pointermove', event => {
+    const bounds = company.getBoundingClientRect();
+    const rotateX = ((event.clientY - bounds.top) / bounds.height - 0.5) * -16;
+    const rotateY = ((event.clientX - bounds.left) / bounds.width - 0.5) * 18;
+    company.style.transform = `perspective(500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(8px)`;
+  });
+  company.addEventListener('pointerleave', () => { company.style.transform = ''; });
+});
 
 async function loadGithubRepos() {
   try {
