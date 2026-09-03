@@ -1,5 +1,26 @@
 :root {
+  --ink: #d7ffd2;
+  --cream: #030603;
+  --paper: #070d08;
+  --yellow: #39ff14;
+  --blue: #00e95b;
   --red: #39ff14;
+  --line: #123d1c;
+}
+
+body,
+.site-shell,
+.nav-bar,
+.work-section,
+.experience-section,
+.about-section,
+footer,
+#code-dialog {
+  background-color: #030603;
+}
+
+body {
+  color: var(--ink);
 }
 
 body::before {
@@ -7,6 +28,7 @@ body::before {
 }
 
 .site-shell {
+  border-color: #123d1c;
   box-shadow: 0 0 80px rgba(57, 255, 20, 0.1);
 }
 
@@ -16,6 +38,11 @@ body::before {
 
 .shape-red {
   background: #39ff14;
+}
+
+.shape-blue,
+.visual-experiment {
+  background: #00c94f;
 }
 
 .ticker {
@@ -30,6 +57,71 @@ body::before {
   background: #39ff14;
   color: #061006;
   box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+}
+
+.button-dark {
+  background: #d7ffd2;
+  color: #030603;
+}
+
+.hero h1,
+.section-heading h2,
+.experience-item h3,
+.card-body h3,
+.github-repo h3,
+.about-content h2 {
+  color: var(--ink);
+}
+
+.hero-intro,
+.section-side,
+.experience-item p:last-child,
+.about-content > p,
+.card-body p,
+.github-repo p {
+  color: #8fcf91;
+}
+
+.nav-links,
+.about-meta span,
+.search input::placeholder {
+  color: #6da871;
+}
+
+.hero-art,
+.project-card,
+.github-repo {
+  background: #071107;
+  border-color: #1c6429;
+}
+
+.project-visual {
+  background: #0b2811;
+}
+
+.visual-web {
+  background: linear-gradient(135deg, #123d1c, #061008);
+}
+
+.experience-list,
+.experience-item,
+.card-footer,
+.filter-pill,
+.search,
+.github-loading,
+.github-error {
+  border-color: #1c6429;
+}
+
+.about-stamp {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.linkedin-card,
+.x-card {
+  background: #071107;
+  border-color: #1c6429;
 }
 
 .github-repo:hover {
