@@ -9,15 +9,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="neon.css" />
-  <style>
-    :root { --ink: #fff1f3; --cream: #090909; --paper: #111111; --yellow: #ff4057; --blue: #ff1744; --red: #e5092f; --line: #3a141b; }
-    body { background: #050505; }
-    .site-shell, .hero-art, .project-card, .github-repo, .linkedin-card, .x-card { background-color: #1a0d10; border-color: #5a1b26; }
-    .work-section, .experience-section, .about-section, footer, #code-dialog { background-color: #0b0b0b; }
-    .ticker, .button-accent, .visual-experiment { background-color: #e5092f; }
-    .visual-tool { background-color: #ff4057; }
-  </style>
 </head>
 <body>
   <div class="site-shell">
@@ -49,18 +40,18 @@
           <div class="art-shape shape-yellow"></div>
           <div class="art-shape shape-blue"></div>
           <div class="art-shape shape-red"></div>
-          <div class="art-note note-bottom">EST. 2020</div>
+          <div class="art-note note-bottom">EST. 2024 — 2026</div>
         </div>
       </section>
 
       <section class="ticker" aria-label="Portfolio themes">
-        <div class="ticker-track"><span>SERVER SUPPORT</span><i>✳</i><span>FIBER OPTICS</span><i>✳</i><span>HARDWARE DEPLOYMENT</span><i>✳</i><span>CDUs</span><i>✳</i><span>RDHXs and Chilled Doors</span><i>✳</i><span>HDUs</span><i>✳</i></div>
+        <div class="ticker-track"><span>SERVER SUPPORT</span><i>✳</i><span>FIBER OPTICS</span><i>✳</i><span>HARDWARE DEPLOYMENT</span><i>✳</i><span>ENDPOINT SECURITY</span><i>✳</i><span>SERVER SUPPORT</span><i>✳</i><span>FIBER OPTICS</span><i>✳</i></div>
       </section>
 
       <section class="work-section" id="work" aria-labelledby="work-title">
         <div class="section-heading reveal">
           <div><p class="eyebrow">01 / The archive</p><h2 id="work-title">Things I’ve<br /><span>made.</span></h2></div>
-          <div class="section-side"><p>Experiments and Labs, all in one place. Each piece is a snapshot of what I was curious about next.</p></div>
+          <div class="section-side"><p>Small experiments and serious work, all in one place. Each piece is a snapshot of what I was curious about next.</p><button class="button button-accent" id="open-add">+ Add a project</button></div>
         </div>
         <div class="toolbar reveal delay-1">
           <div class="filter-pills" role="group" aria-label="Filter projects">
@@ -80,7 +71,7 @@
       <section class="experience-section" id="experience" aria-labelledby="experience-title">
         <div class="section-heading reveal">
           <div><p class="eyebrow">02 / The experience</p><h2 id="experience-title">Built for<br /><span>the real world.</span></h2></div>
-          <div class="section-side"><p>I’ve worked with top companies and government contractors, supporting the infrastructure and technical systems that keep demanding environments moving.</p><div class="experience-companies" aria-label="Companies and contracts"><a class="company-nvidia" href="https://www.nvidia.com/" target="_blank" rel="noreferrer">NVIDIA</a><a class="company-nasa" href="https://www.nasa.gov/" target="_blank" rel="noreferrer">NASA</a><a class="company-spacex" href="https://www.spacex.com/" target="_blank" rel="noreferrer">SpaceXAI</a><a class="company-meta" href="https://about.meta.com/" target="_blank" rel="noreferrer">Meta</a><a class="company-government" href="https://sam.gov/content/opportunities" target="_blank" rel="noreferrer">Government Contracts</a></div></div>
+          <div class="section-side"><p>I’ve worked with top companies and government contracts, supporting the infrastructure and technical systems that keep demanding environments moving.</p><p class="experience-companies">NVIDIA · NASA · SpaceXAI · Meta · Government Contracts</p></div>
         </div>
         <div class="experience-list">
           <article class="experience-item reveal"><div class="experience-date">Jan 2025 — Present</div><div><h3>Field Tech Support Specialist</h3><p class="experience-company">Motivair Corporation · Memphis, TN</p><p>Deliver onsite technical services for mission-critical cooling systems, helping maintain performance and minimize downtime in high-availability environments.</p></div></article>
@@ -101,6 +92,17 @@
     <footer><span>© 2026 Studio Archive</span><span>Made with attention & a little caffeine</span><a href="#top">Back to top ↑</a></footer>
   </div>
 
+  <dialog id="project-dialog">
+    <form method="dialog" id="project-form">
+      <button class="close-dialog" value="cancel" aria-label="Close dialog">×</button>
+      <p class="eyebrow">Add to the archive</p><h2>New project<span>.</span></h2>
+      <div class="form-grid"><label>Project name<input id="project-name" required maxlength="50" placeholder="e.g. Sunday Notes" /></label><label>Category<select id="project-category"><option value="web">Web</option><option value="experiment">Experiment</option><option value="tool">Tool</option></select></label></div>
+      <label>Short description<textarea id="project-description" required maxlength="140" placeholder="What did you make, and why?"></textarea></label>
+      <label>Source file <span class="optional">optional</span><input id="project-file" type="file" accept=".html,.css,.js,.json,.md,.txt" /></label>
+      <label>Or paste your code<textarea id="project-code" class="code-input" placeholder="const idea = 'worth sharing';"></textarea></label>
+      <div class="dialog-actions"><button class="button button-quiet" value="cancel">Cancel</button><button class="button button-accent" id="save-project" value="default">Save project ↗</button></div>
+    </form>
+  </dialog>
   <dialog id="code-dialog"><div class="code-dialog-head"><div><p class="eyebrow">Source file</p><h2 id="code-title">Project code</h2></div><button class="close-dialog" id="close-code" aria-label="Close code viewer">×</button></div><pre><code id="code-content"></code></pre><button class="button button-accent copy-button" id="copy-code">Copy code</button></dialog>
   <script src="script.js"></script>
 </body>
