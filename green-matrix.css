@@ -138,17 +138,27 @@ body::before {
   background: #061006;
 }
 
-.interview-heading h3 {
+.interview-heading h2 {
+  position: relative;
   margin: 0 0 4px;
   color: var(--ink);
-  font-size: 28px;
-  line-height: .95;
+  font: 700 clamp(4.5rem, 12vw, 10rem)/.78 var(--mono);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  -webkit-text-stroke: 2px var(--yellow);
+  text-shadow: 5px 5px 0 rgba(0, 229, 91, .2), 0 0 28px rgba(57, 255, 20, .55);
+  transform: skew(-8deg);
 }
 
-.interview-heading em {
-  color: var(--red);
-  font-family: Georgia, serif;
-  font-weight: 400;
+.interview-heading h2::after {
+  content: '';
+  display: block;
+  width: min(170px, 45%);
+  height: 7px;
+  margin-top: 24px;
+  background: var(--red);
+  box-shadow: 14px 0 0 var(--blue), 28px 0 0 var(--yellow);
+  transform: skew(8deg);
 }
 
 .interview-closing blockquote {
