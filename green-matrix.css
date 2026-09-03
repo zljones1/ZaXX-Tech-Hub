@@ -127,3 +127,17 @@ body::before {
 .github-repo:hover {
   border-color: #39ff14;
 }
+
+.company-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+@media (max-width: 500px) {
+  .company-icon {
+    width: 28px;
+    height: 28px;
+  }
+}
