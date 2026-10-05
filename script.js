@@ -8,7 +8,7 @@ const starterProjects = [
 
 function loadProjects() {
   try {
-    const storedProjects = localStorage.getItem('studio-projects');
+    const storedProjects = localStorage.getItem('studio-projects);
     const parsedProjects = storedProjects ? JSON.parse(storedProjects) : starterProjects;
     return Array.isArray(parsedProjects) ? parsedProjects : starterProjects;
   } catch (error) {
@@ -18,8 +18,8 @@ function loadProjects() {
 
 let projects = loadProjects();
 let activeFilter = 'all';
-const grid = document.querySelector('#project-grid');
-const emptyState = document.querySelector('#empty-state');
+const grid = document.querySelector('#project-grid);
+const emptyState = document.querySelector('#empty-state);
 const githubGrid = document.querySelector('#github-grid);
 
 function saveProjects() {
