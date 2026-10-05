@@ -55,7 +55,7 @@ renderProjects();
 
 async function loadGithubRepos() {
   try {
-    const response = await fetch('https://api.github.com/users/zljones1/repos?sort=updated&per_page=6);
+    const response = await fetch('https://api.github.com/users/zljones1/repos?sort=updated&per_page=6');
     if (!response.ok) throw new Error('GitHub request failed');
     const repos = await response.json();
     if (!repos.length) { githubGrid.innerHTML = '<div class="github-error">No public repositories found yet.</div>'; return; }
