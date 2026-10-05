@@ -1,205 +1,48 @@
-:root {
-  --ink: #d7ffd2;
-  --cream: #030603;
-  --paper: #070d08;
-  --yellow: #39ff14;
-  --blue: #00e95b;
-  --red: #39ff14;
-  --line: #123d1c;
+::selection {
+  color: #10200e;
+  background: var(--green);
 }
 
-body,
-.site-shell,
-.nav-bar,
-.work-section,
-.experience-section,
-.about-section,
-footer,
-#code-dialog {
-  background-color: #030603;
+.shape-yellow {
+  box-shadow: 0 0 54px rgba(167, 240, 107, .14);
 }
 
-body {
-  color: var(--ink);
-}
-
-body::before {
-  background-image: linear-gradient(rgba(57, 255, 20, 0.09) 1px, transparent 1px), linear-gradient(90deg, rgba(57, 255, 20, 0.09) 1px, transparent 1px);
-}
-
-.site-shell {
-  border-color: #123d1c;
-  box-shadow: 0 0 80px rgba(57, 255, 20, 0.1);
-}
-
-.hero {
-  background: radial-gradient(circle at 80% 20%, rgba(57, 255, 20, 0.12), transparent 32%);
+.shape-blue {
+  box-shadow: 0 0 44px rgba(167, 240, 107, .13);
 }
 
 .shape-red {
-  background: #39ff14;
+  box-shadow: 0 0 38px rgba(167, 240, 107, .12);
 }
 
-.shape-blue,
-.visual-experiment {
-  background: #00c94f;
+.company-nvidia {
+  --company-color: #76b900;
 }
 
-.ticker {
-  background: #39ff14;
+.company-nasa {
+  --company-color: #ef476f;
 }
 
-.ticker-track i {
-  color: #b7ffab;
+.company-spacex {
+  --company-color: #d8ff38;
 }
 
-.button-accent {
-  background: #39ff14;
-  color: #061006;
-  box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+.company-government {
+  --company-color: #00e5a0;
 }
 
-.button-dark {
-  background: #d7ffd2;
-  color: #030603;
+.company-meta {
+  --company-color: #7c83ff;
 }
 
-.hero h1,
-.section-heading h2,
-.experience-item h3,
-.card-body h3,
-.github-repo h3,
-.about-content h2 {
-  color: var(--ink);
+.company-link:hover .company-mark,
+.company-link:focus-visible .company-mark {
+  border-color: var(--company-color);
+  color: var(--company-color);
 }
 
-.hero-intro,
-.section-side,
-.experience-item p:last-child,
-.about-content > p,
-.card-body p,
-.github-repo p {
-  color: #8fcf91;
-}
-
-.nav-links,
-.about-meta span,
-.search input::placeholder {
-  color: #6da871;
-}
-
-.hero-art,
-.project-card,
-.github-repo {
-  background: #071107;
-  border-color: #1c6429;
-}
-
-.project-visual {
-  background: #0b2811;
-}
-
-.visual-web {
-  background: linear-gradient(135deg, #123d1c, #061008);
-}
-
-.experience-list,
-.experience-item,
-.card-footer,
-.filter-pill,
-.search,
-.github-loading,
-.github-error {
-  border-color: #1c6429;
-}
-
-.about-stamp {
-  border-color: var(--red);
-  color: var(--red);
-}
-
-.linkedin-card,
-.x-card {
-  background: #071107;
-  border-color: #1c6429;
-}
-
-.github-repo:hover {
-  border-color: #39ff14;
-}
-
-.interview-closing {
-  display: grid;
-  grid-template-columns: minmax(220px, .8fr) minmax(0, 1.2fr);
-  gap: 60px;
-  align-items: end;
-  padding: 90px 8vw 105px;
-  border-top: 1px solid #1c6429;
-  background: #061006;
-}
-
-.interview-heading h2 {
-  position: relative;
-  margin: 0 0 4px;
-  color: var(--ink);
-  font: 700 clamp(4.5rem, 12vw, 10rem)/.78 var(--mono);
-  letter-spacing: .02em;
-  text-transform: uppercase;
-  -webkit-text-stroke: 2px var(--yellow);
-  text-shadow: 5px 5px 0 rgba(0, 229, 91, .2), 0 0 28px rgba(57, 255, 20, .55);
-  transform: skew(-8deg);
-}
-
-.interview-heading h2::after {
-  content: '';
-  display: block;
-  width: min(170px, 45%);
-  height: 7px;
-  margin-top: 24px;
-  background: var(--red);
-  box-shadow: 14px 0 0 var(--blue), 28px 0 0 var(--yellow);
-  transform: skew(8deg);
-}
-
-.interview-closing blockquote {
-  margin: 0;
-  padding: 18px 20px;
-  border-left: 3px solid var(--yellow);
-  background: #071107;
-}
-
-.interview-closing blockquote p {
-  margin: 0 0 12px;
-  color: var(--ink);
-  font-size: 16px;
-  line-height: 1.55;
-}
-
-.interview-closing cite {
-  display: block;
-  color: #6da871;
-  font: 10px/1.5 var(--mono);
-  text-transform: uppercase;
-}
-
-@media (max-width: 700px) {
-  .interview-closing {
-    grid-template-columns: 1fr;
-    gap: 28px;
-    padding: 70px 7vw 80px;
-  }
-}
-
-.company-icon {
-  display: block;
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
-}
-
-@media (max-width: 500px) {
-  .company-icon {
-    width: 28px;
-    height: 28px;
+@media (prefers-reduced-motion: no-preference) {
+  .company-link:hover .company-mark {
+    box-shadow: 0 0 14px color-mix(in srgb, var(--company-color) 28%, transparent);
   }
 }
