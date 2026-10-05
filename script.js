@@ -20,7 +20,7 @@ let projects = loadProjects();
 let activeFilter = 'all';
 const grid = document.querySelector('#project-grid');
 const emptyState = document.querySelector('#empty-state');
-const githubGrid = document.querySelector('#github-grid');
+const githubGrid = document.querySelector('#github-grid);
 
 function saveProjects() {
   try { localStorage.setItem('studio-projects', JSON.stringify(projects)); } catch (error) { }
@@ -45,6 +45,7 @@ grid.addEventListener('click', event => {
 });
 
 const projectDialog = document.querySelector('#project-dialog);
+projectDialog.close(); // ensure the New project dialog is never left open on load
 document.querySelector('#open-add').addEventListener('click', () => projectDialog.showModal());
 document.querySelector('#close-code').addEventListener('click', () => document.querySelector('#code-dialog').close());
 document.querySelector('#copy-code').addEventListener('click', async event => { try { if (!navigator.clipboard) throw new Error('Clipboard unavailable'); await navigator.clipboard.writeText(document.querySelector('#code-content').textContent); event.target.textContent = 'Copied ✓'; } catch (error) { event.target.textContent = 'Copy unavailable'; } setTimeout(() => { event.target.textContent = 'Copy code'; }, 1400); });
