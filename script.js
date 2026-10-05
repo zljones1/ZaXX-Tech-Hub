@@ -32,7 +32,7 @@ function renderProjects() {
   const visible = projects.filter(project => (activeFilter === 'all' || project.category === activeFilter) && `${project.name} ${project.description}`.toLowerCase().includes(query));
   grid.innerHTML = visible.map((project, index) => `<article class="project-card" style="animation-delay:${index * 70}ms"><div class="project-visual visual-${project.category}"><div class="visual-lines"><i></i><i></i><i></i></div><span class="visual-mark">${project.category === 'web' ? '01' : project.category === 'experiment' ? '✳' : '↗'}</span></div><div class="card-body"><div class="card-meta"><span>${categoryLabel(project.category)}</span><span>${project.year}</span></div><h3>${escapeHtml(project.name)}</h3><p>${escapeHtml(project.description)}</p><div class="card-footer"><button class="card-link view-code" data-id="${project.id}">View source ↗</button>${projects.length > 1 ? `<button class="delete-project" data-id="${project.id}">Remove</button>` : ''}</div></div></article>`).join('');
   emptyState.hidden = visible.length > 0;
-  ['all', 'web', 'experiment', 'tool'].forEach(filter => { document.querySelector(`#${filter === 'all' ? 'all' : filter}-count`).textContent = filter === 'all' ? projects.length : projects.filter(project => project.category === filter).length; });
+  ['all', 'web', 'experiment', 'tool'].forEach(filter => { document.querySelector(`#${filter === 'all' ? 'all' : filter}-count`).textContent = filter === 'all' ? projects.length : projects.filter(project => project.category === filter).length); });
 }
 function escapeHtml(value) { return String(value ?? '').replace(/[&<>'"]/g, character => ({ '&': '&', '<': '<', '>': '>', "'": '&#039;', '"': '"' }[character])); }
 
@@ -41,7 +41,7 @@ document.querySelector('#search-input').addEventListener('input', renderProjects
 grid.addEventListener('click', event => {
   const id = event.target.dataset.id;
   if (event.target.classList.contains('delete-project')) { projects = projects.filter(project => project.id !== id); saveProjects(); renderProjects(); }
-  if (event.target.classList.contains('view-code')) { const project = projects.find(item => item.id === id); if (!project) return; document.querySelector('#code-title').textContent = project.name; document.querySelector('#code-content').textContent = project.code || 'No source added yet.'; document.querySelector('#code-dialog').showModal(); }
+  if (event.target.classList.contains('view-code')) { const project = projects.find(item => item.id === id); if (!project) return; document.querySelector('#code-title').textContent = project.name; document.querySelector('#code-content').textContent = project.code || 'No source added yet.'; document.querySelector('#code-dialog').close(); document.querySelector('#code-dialog').showModal(); }
 });
 
 const projectDialog = document.querySelector('#project-dialog);
