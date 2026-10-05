@@ -8,7 +8,7 @@ const starterProjects = [
 
 function loadProjects() {
   try {
-    const storedProjects = localStorage.getItem('studio-projects);
+    const storedProjects = localStorage.getItem('studio-projects');
     const parsedProjects = storedProjects ? JSON.parse(storedProjects) : starterProjects;
     return Array.isArray(parsedProjects) ? parsedProjects : starterProjects;
   } catch (error) {
@@ -18,9 +18,9 @@ function loadProjects() {
 
 let projects = loadProjects();
 let activeFilter = 'all';
-const grid = document.querySelector('#project-grid);
-const emptyState = document.querySelector('#empty-state);
-const githubGrid = document.querySelector('#github-grid);
+const grid = document.querySelector('#project-grid');
+const emptyState = document.querySelector('#empty-state');
+const githubGrid = document.querySelector('#github-grid');
 
 function saveProjects() {
   try { localStorage.setItem('studio-projects', JSON.stringify(projects)); } catch (error) { }
@@ -34,7 +34,7 @@ function renderProjects() {
   emptyState.hidden = visible.length > 0;
   ['all', 'web', 'experiment', 'tool'].forEach(filter => { document.querySelector(`#${filter === 'all' ? 'all' : filter}-count`).textContent = filter === 'all' ? projects.length : projects.filter(project => project.category === filter).length; });
 }
-function escapeHtml(value) { return String(value ?? '').replace(/[&<>'"]/g, character => ({ '&': '&', '<': '<', '>': '>', "'": '&#039;', '"': '"' }[character])); }
+function escapeHtml(value) { return String(value ?? '').replace(/[&<>'"]/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' }[character])); }
 
 document.querySelectorAll('.filter-pill').forEach(button => button.addEventListener('click', () => { activeFilter = button.dataset.filter; document.querySelectorAll('.filter-pill').forEach(item => item.classList.toggle('active', item === button)); renderProjects(); }));
 document.querySelector('#search-input').addEventListener('input', renderProjects);
@@ -44,7 +44,7 @@ grid.addEventListener('click', event => {
   if (event.target.classList.contains('view-code')) { const project = projects.find(item => item.id === id); if (!project) return; document.querySelector('#code-title').textContent = project.name; document.querySelector('#code-content').textContent = project.code || 'No source added yet.'; document.querySelector('#code-dialog').close(); document.querySelector('#code-dialog').showModal(); }
 });
 
-const projectDialog = document.querySelector('#project-dialog);
+const projectDialog = document.querySelector('#project-dialog');
 projectDialog.close(); // ensure the New project dialog is never left open on load
 document.querySelector('#open-add').addEventListener('click', () => projectDialog.showModal());
 document.querySelector('#close-code').addEventListener('click', () => document.querySelector('#code-dialog').close());
@@ -55,11 +55,11 @@ renderProjects();
 
 async function loadGithubRepos() {
   try {
-    const response = await fetch('https://api.github.com/users/zljones1/repos?sort=updated&per_page=6);
-    if (!response.ok) throw new Error('GitHub request failed);
+    const response = await fetch('https://api.github.com/users/zljones1/repos?sort=updated&per_page=6');
+    if (!response.ok) throw new Error('GitHub request failed');
     const repos = await response.json();
     if (!repos.length) { githubGrid.innerHTML = '<div class="github-error">No public repositories found yet.</div>'; return; }
-    const repositoryMarkup = repos.map(repo => { let repoUrl; try { repoUrl = new URL(repo.html_url); } catch (error) { return ''; } if (repoUrl.protocol !== 'https:' || repoUrl.hostname !== 'github.com') return ''; return `<a class="github-repo" href="${escapeHtml(repoUrl.href)}" target="_blank" rel="noreferrer"><h3>${escapeHtml(repo.name)}</h3><p>${escapeHtml(repo.description || 'A public project from the archive.')}</p><div class="repo-meta"><span>${escapeHtml(repo.language || 'Code)}</span><span>★ ${repo.stargazers_count}</span><span>↗ GitHub</span></div></a>`; }).join('');
+    const repositoryMarkup = repos.map(repo => { let repoUrl; try { repoUrl = new URL(repo.html_url); } catch (error) { return ''; } if (repoUrl.protocol !== 'https:' || repoUrl.hostname !== 'github.com') return ''; return `<a class="github-repo" href="${escapeHtml(repoUrl.href)}" target="_blank" rel="noreferrer"><h3>${escapeHtml(repo.name)}</h3><p>${escapeHtml(repo.description || 'A public project from the archive.')}</p><div class="repo-meta"><span>${escapeHtml(repo.language || 'Code')}</span><span>★ ${repo.stargazers_count}</span><span>↗ GitHub</span></div></a>`; }).join('');
     githubGrid.innerHTML = repositoryMarkup || '<div class="github-error">No valid public repositories found yet.</div>';
   } catch (error) {
     githubGrid.innerHTML = '<div class="github-error">GitHub repos are unavailable right now. The rest of the archive is still here.</div>';
@@ -67,12 +67,12 @@ async function loadGithubRepos() {
 }
 loadGithubRepos();
 
-const revealElements = document.querySelectorAll('.reveal);
+const revealElements = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window) {
   const revealObserver = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible);
+        entry.target.classList.add('is-visible');
         revealObserver.unobserve(entry.target);
       }
     });
